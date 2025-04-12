@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xploit.ac | Premium Gaming Enhancements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7b2cbf;
+            --primary-dark: #5a189a;
+            --primary-light: #9d4edd;
+            --secondary: #ff9e00;
+            --accent: #ff6d00;
+            --dark: #0c011d;
+            --darker: #070012;
+            --light: #f8f9fa;
+            --success: #38b000;
+            --danger: #e63946;
+            --rust: #d74e09;
+            --cs2: #1a759f;
+            --card-bg: rgba(20, 5, 45, 0.9);
+            --card-border: rgba(123, 44, 191, 0.4);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --glow: 0 0 20px rgba(123, 44, 191, 0.5);
+            --text-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap');
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(255, 158, 0, 0.1) 0%, transparent 25%);
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .text-gradient {
+            background: var(--text-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(12px);
+            background: rgba(10, 0, 26, 0.9);
+            border-bottom: 1px solid rgba(123, 44, 191, 0.2);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(10, 0, 26, 0.95);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+            text-shadow: var(--glow);
+        }
+
+        .logo span {
+            color: var(--primary);
+            margin-left: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--text-gradient);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.8rem;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            color: rgba(240, 248, 255, 0.8);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+            position: relative;
+            height: 350px;
+            width: 45%;
+            min-width: 400px;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .category-banner {
+            height: 70%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .category-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(10, 0, 26, 0.9));
+        }
+
+        .rust-banner {
+            background: linear-gradient(135deg, rgba(215, 78, 9, 0.7), rgba(0, 0, 0, 0)), url('https://imgs.search.brave.com/1Riuv4TWEYz0vTv9H7Hggw8m6xBd95Qb4Bi8xcj0rAw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDcwMDc4/NjMuanBn') center/cover;
+        }
+
+        .cs2-banner {
+            background: linear-gradient(135deg, rgba(26, 117, 159, 0.7), rgba(26, 117, 159, 0.5)), url('https://imgs.search.brave.com/ZlbXjWOCzREZ9TI1_RyBHrEusdKO5KK0jbNvo2az2LE/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvZW4vdGh1bWIv/Zi9mMi9DUzJfQ292/ZXJfQXJ0LmpwZy81/MTJweC1DUzJfQ292/ZXJfQXJ0LmpwZw') center/cover;
+        }
+
+        .category-icon {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+        }
+
+        .category-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .category-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+
+        .product-count {
+            color: rgba(240, 248, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .category-description {
+            color: rgba(240, 248, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .view-products {
+            display: flex;
+            align-items: center;
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-top: auto;
+        }
+
+        .view-products i {
+            margin-left: 8px;
+            transition: var(--transition);
+        }
+
+        .category-card:hover .view-products i {
+            transform: translateX(5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .page-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .category-card {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 0, 26, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transform: translateX(100%);
+                transition: var(--transition);
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .category-card {
+                min-width: 350px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .category-card {
+                height: 300px;
+                min-width: 300px;
+            }
+            
+            .category-icon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">xploit<span>.ac</span></a>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="https://discord.gg/6YTngGVKAk" target="_blank" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Join Discord</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title text-gradient">Game Categories</h1>
+            <p class="page-subtitle">Select a game to view our premium enhancement products</p>
+        </header>
+        
+        <!-- Category Grid -->
+        <div class="category-grid">
+            <a href="rust-products.html" class="category-card">
+                <div class="category-banner rust-banner">
+                    <div class="category-icon">
+                        <img src="rustlogo.png" alt="Rust Logo">
+                    </div>
+                </div>
+                <div class="category-content">
+                    <h3 class="category-title">Rust</h3>
+                    <div class="product-count">4 products available</div>
+                    <p class="category-description">Dominate the wasteland with our premium Rust cheats featuring advanced ESP, aim assistance, and undetectable protection.</p>
+                    <div class="view-products">
+                        View products <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="cs2-products.html" class="category-card">
+                <div class="category-banner cs2-banner">
+                    <div class="category-icon">
+                        <img src="cs2logo.png" alt="CS2 Logo">
+                    </div>
+                </div>
+                <div class="category-content">
+                    <h3 class="category-title">CS2</h3>
+                    <div class="product-count">3 products available</div>
+                    <p class="category-description">Elevate your Counter-Strike gameplay with precision aiming, radar enhancements, and movement optimizations.</p>
+                    <div class="view-products">
+                        View products <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- SellHub Embed Script -->
+    <script type="module" src="https://public.sellhub.cx/embeds.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            });
+            
+            // Initialize SellHub embeds
+            if (typeof window.SellHub !== 'undefined') {
+                window.SellHub.init();
+            }
+        });
+    </script>
+</body>
+</html>

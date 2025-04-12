@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xploit.ac | Elite Gaming Enhancements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7b2cbf;
+            --primary-dark: #5a189a;
+            --primary-light: #9d4edd;
+            --secondary: #ff9e00;
+            --accent: #ff6d00;
+            --dark: #0c011d;
+            --darker: #070012;
+            --light: #f8f9fa;
+            --success: #38b000;
+            --danger: #e63946;
+            --rust: #d74e09;
+            --cs2: #1a759f;
+            --card-bg: rgba(20, 5, 45, 0.9);
+            --card-border: rgba(123, 44, 191, 0.4);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --section-padding: 120px 0;
+            --glow: 0 0 20px rgba(123, 44, 191, 0.5);
+            --text-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap');
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 44, 191, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(255, 158, 0, 0.1) 0%, transparent 25%);
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .text-gradient {
+            background: var(--text-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Layout */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--text-gradient);
+            color: white;
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(123, 44, 191, 0.7);
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+        }
+
+        .btn-secondary {
+            background: rgba(30, 10, 60, 0.8);
+            color: var(--light);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(123, 44, 191, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(123, 44, 191, 0.4);
+            border-color: var(--secondary);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(12px);
+            background: rgba(10, 0, 26, 0.9);
+            border-bottom: 1px solid rgba(123, 44, 191, 0.2);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(10, 0, 26, 0.95);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+            text-shadow: var(--glow);
+        }
+
+        .logo span {
+            color: var(--primary);
+            margin-left: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--text-gradient);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.8rem;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, var(--darker) 0%, var(--dark) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(123, 44, 191, 0.1) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 35px;
+            color: rgba(240, 248, 255, 0.85);
+            max-width: 650px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: var(--section-padding);
+            background: linear-gradient(to bottom, rgba(10, 0, 26, 0.8), rgba(10, 0, 26, 0.9));
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%237b2cbf' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: var(--text-gradient);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: rgba(240, 248, 255, 0.75);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(123, 44, 191, 0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(123, 44, 191, 0.2);
+            border-color: var(--primary);
+        }
+
+        .stat-card:hover::before {
+            transform: rotate(90deg);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            background: var(--text-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(240, 248, 255, 0.85);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: var(--section-padding);
+            position: relative;
+            background: linear-gradient(to bottom, var(--dark), var(--darker));
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px 30px;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(123, 44, 191, 0.1), rgba(255, 158, 0, 0.05));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(123, 44, 191, 0.2);
+            border-color: var(--primary);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--text-gradient);
+            border-radius: 18px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            color: white;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotate(15deg) scale(1.1);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .feature-description {
+            font-size: 1.05rem;
+            color: rgba(240, 248, 255, 0.75);
+            line-height: 1.7;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: var(--section-padding);
+            background: linear-gradient(to bottom, rgba(10, 0, 26, 0.9), rgba(10, 0, 26, 1));
+            position: relative;
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(123, 44, 191, 0.2);
+            border-color: var(--primary);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--text-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .user-game {
+            font-size: 0.9rem;
+            color: rgba(240, 248, 255, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .rust-icon {
+            background: var(--rust);
+        }
+
+        .cs2-icon {
+            background: var(--cs2);
+        }
+
+        .testimonial-stars {
+            color: #ffc107;
+            font-size: 1.1rem;
+            margin-left: 10px;
+        }
+
+        .testimonial-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: rgba(240, 248, 255, 0.9);
+            font-style: italic;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 3rem;
+            color: rgba(123, 44, 191, 0.3);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-product {
+            background: rgba(123, 44, 191, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+
+        .verified-badge {
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: var(--section-padding);
+            position: relative;
+            background: linear-gradient(to bottom, var(--darker), var(--dark));
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(123, 44, 191, 0.1);
+        }
+
+        .faq-question {
+            padding: 25px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            color: var(--light);
+        }
+
+        .faq-question:hover {
+            color: var(--primary-light);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            color: rgba(240, 248, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 25px 25px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to bottom, rgba(10, 0, 26, 1), rgba(5, 0, 15, 1));
+            padding: 80px 0 30px;
+            position: relative;
+            border-top: 1px solid rgba(123, 44, 191, 0.2);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo a {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .footer-logo a span {
+            color: var(--primary);
+        }
+
+        .footer-description {
+            color: rgba(240, 248, 255, 0.7);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(123, 44, 191, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+        }
+
+        .footer-links h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--light);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--text-gradient);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(240, 248, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(240, 248, 255, 0.1);
+        }
+
+        .copyright {
+            color: rgba(240, 248, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Particles Background */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(123, 44, 191, 0.5);
+            filter: blur(1px);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glow Effects */
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, var(--primary-light) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+            border-radius: inherit;
+        }
+
+        .glow-effect:hover::after {
+            opacity: 0.3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(10, 0, 26, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transform: translateX(100%);
+                transition: var(--transition);
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">xploit<span>.ac</span></a>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="https://discord.gg/6YTngGVKAk" target="_blank" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Join Discord</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-particles" id="particles-js"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1><span class="text-gradient">DOMINATE</span> YOUR GAMES</h1>
+                <p>Experience the ultimate competitive edge with our premium, undetectable enhancements. Join thousands of elite players who trust our technology to elevate their gameplay.</p>
+                <div class="btn-group">
+                    <a href="products.html" class="btn btn-primary glow-effect">Explore Products</a>
+                    <a href="https://discord.gg/6YTngGVKAk" class="btn btn-secondary glow-effect" target="_blank">
+                        <i class="fab fa-discord"></i> Community
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Us</h2>
+                <p class="section-subtitle">Numbers that speak for themselves - join the elite today</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card glow-effect">
+                    <div class="stat-number" data-count="12500">0</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card glow-effect">
+                    <div class="stat-number" data-count="99.9">0</div>
+                    <div class="stat-label">Uptime %</div>
+                </div>
+                <div class="stat-card glow-effect">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-label">Hour Support</div>
+                </div>
+                <div class="stat-card glow-effect">
+                    <div class="stat-number" data-count="150">0+</div>
+                    <div class="stat-label">Features</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Advantages</h2>
+                <p class="section-subtitle">What makes our solutions superior to the competition</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card glow-effect">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Military-Grade Protection</h3>
+                    <p class="feature-description">Our proprietary anti-detection technology ensures your account remains secure with multiple layers of protection against anti-cheat systems.</p>
+                </div>
+                <div class="feature-card glow-effect">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Performance Optimized</h3>
+                    <p class="feature-description">Lightweight architecture designed for maximum performance with zero impact on your game's FPS or system resources.</p>
+                </div>
+                <div class="feature-card glow-effect">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3 class="feature-title">Instant Updates</h3>
+                    <p class="feature-description">Our team works around the clock to deliver updates within hours of game patches, ensuring uninterrupted service.</p>
+                </div>
+                <div class="feature-card glow-effect">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Elite Support</h3>
+                    <p class="feature-description">24/7 premium support from our expert team with average response times under 15 minutes for all inquiries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Verified Reviews</h2>
+                <p class="section-subtitle">What our community says about our products</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <!-- Testimonials will be injected by JavaScript -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">FAQ</h2>
+                <p class="section-subtitle">Answers to common questions about our services</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item glow-effect">
+                    <div class="faq-question">
+                        How secure is your software?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our software employs multiple layers of protection including memory encryption, randomized signatures, and behavior masking to ensure maximum security. While no solution can guarantee 100% safety, we have a flawless track record with regular updates to maintain our undetected status.</p>
+                    </div>
+                </div>
+                <div class="faq-item glow-effect">
+                    <div class="faq-question">
+                        How quickly do you update after game patches?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our average update time is under 4 hours for critical patches. We have a dedicated team monitoring game updates 24/7 to ensure minimal downtime for our users.</p>
+                    </div>
+                </div>
+                <div class="faq-item glow-effect">
+                    <div class="faq-question">
+                        What payment methods do you accept?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major cryptocurrencies (BTC, ETH, LTC, USDT), credit/debit cards, and PayPal. Crypto payments receive an automatic 15% discount and are our recommended payment method for enhanced privacy.</p>
+                    </div>
+                </div>
+                <div class="faq-item glow-effect">
+                    <div class="faq-question">
+                        Is there a risk of getting banned?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While we cannot eliminate all risk (as with any third-party software), our technology is designed to minimize detection risk. We provide detailed usage guides and recommend following best practices to further reduce any potential risk.</p>
+                    </div>
+                </div>
+                <div class="faq-item glow-effect">
+                    <div class="faq-question">
+                        How does the installation process work?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After purchase, you'll receive access to our secure client with step-by-step installation instructions. The process is streamlined and typically takes less than 2 minutes to complete. Our support team is available 24/7 to assist with any questions.</p>
+                    </div>
+                </div>
+                <div class="faq-item glow-effect">
+                    <div class="faq-question">
+                        What is your refund policy?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Due to the nature of our products we rarely issue refunds if ever. Open a ticket and we will decide from there.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#" class="logo">xploit<span>.ac</span></a>
+                    <p class="footer-description">Premium gaming enhancements engineered for professionals. Undetectable. Unmatched. Unfair advantage.</p>
+                    <div class="footer-social">
+                        <a href="https://discord.gg/6YTngGVKAk" class="social-icon" target="_blank">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Products</h3>
+                    <ul>
+                        <li><a href="products.html">Rust Enhancements</a></li>
+                        <li><a href="products.html">CS2 Solutions</a></li>
+                        <li><a href="products.html">All Products</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Setup Guides</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="#">Service Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 xploit.ac | Not affiliated with any game developers or publishers</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all items first
+                faqItems.forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                    const faqIcon = faqItem.querySelector('.faq-question i');
+                    faqIcon.classList.remove('fa-chevron-up');
+                    faqIcon.classList.add('fa-chevron-down');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    const icon = question.querySelector('i');
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+        });
+        
+        // Testimonials data
+        const testimonials = [
+            {
+                text: "Been using Rust for 6 months now - absolutely flawless performance. The ESP is crystal clear and I've had zero issues with detection. Customer support is top-notch too.",
+                stars: 5,
+                game: "rust",
+                product: "Rust Elite",
+                verified: true,
+                initials: "TE"
+            },
+            {
+                text: "The CS2 aimbot is the most natural feeling I've ever used. The customization options let me tweak it to look completely legit while still dominating every match.",
+                stars: 5,
+                game: "cs2",
+                product: "CS2 Pro",
+                verified: true,
+                initials: "CS"
+            },
+            {
+                text: "What impressed me most was the update speed. After the last Rust update, they had a working version before I even woke up the next morning. That's commitment!",
+                stars: 5,
+                game: "rust",
+                product: "Rust Elite",
+                verified: true,
+                initials: "JR"
+            },
+            {
+                text: "I was skeptical at first but the undetected guarantee is real. Been using for 3 months in CS2 with no issues. The radar hack alone is worth the price.",
+                stars: 4.5,
+                game: "cs2",
+                product: "CS2 Basic",
+                verified: true,
+                initials: "MK"
+            },
+            {
+                text: "The performance optimization is incredible - zero FPS drop even with all features enabled. Other cheats I've used tanked my frames but runs perfectly.",
+                stars: 5,
+                game: "rust",
+                product: "Rust Pro",
+                verified: true,
+                initials: "DL"
+            },
+            {
+                text: "24/7 support actually means 24/7. Had an issue at 3am and got help within 10 minutes. These guys are professionals who care about their product.",
+                stars: 5,
+                game: "cs2",
+                product: "CS2 Elite",
+                verified: true,
+                initials: "AP"
+            }
+        ];
+        
+        // Create testimonial cards
+        const testimonialsContainer = document.querySelector('.testimonials-container');
+        
+        testimonials.forEach(testimonial => {
+            const card = document.createElement('div');
+            card.className = 'testimonial-card glow-effect';
+            
+            // Create stars
+            let starsHtml = '';
+            const fullStars = Math.floor(testimonial.stars);
+            const hasHalfStar = testimonial.stars % 1 !== 0;
+            
+            for (let i = 0; i < 5; i++) {
+                if (i < fullStars) {
+                    starsHtml += '<i class="fas fa-star"></i>';
+                } else if (i === fullStars && hasHalfStar) {
+                    starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    starsHtml += '<i class="far fa-star"></i>';
+                }
+            }
+            
+            // Game icon
+            const gameIcon = testimonial.game === 'rust' ? 
+                '<span class="game-icon rust-icon" title="Rust"><i class="fas fa-fire"></i></span>' : 
+                '<span class="game-icon cs2-icon" title="CS2"><i class="fas fa-crosshairs"></i></span>';
+            
+            card.innerHTML = `
+                <div class="testimonial-header">
+                    <div class="user-avatar">${testimonial.initials}</div>
+                    <div class="user-info">
+                        <div class="user-name">Verified User</div>
+                        <div class="user-game">
+                            ${gameIcon}
+                            ${testimonial.game.toUpperCase()}
+                        </div>
+                    </div>
+                    <div class="testimonial-stars">${starsHtml}</div>
+                </div>
+                <p class="testimonial-content">${testimonial.text}</p>
+                <div class="testimonial-footer">
+                    <span class="testimonial-product">${testimonial.product}</span>
+                    ${testimonial.verified ? '<span class="verified-badge"><i class="fas fa-check-circle"></i> Verified Purchase</span>' : ''}
+                </div>
+            `;
+            
+            testimonialsContainer.appendChild(card);
+        });
+        
+        // Animated stats counter
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseFloat(stat.getAttribute('data-count'));
+                const suffix = stat.textContent.includes('+') ? '+' : '';
+                const duration = 2000;
+                const startTime = performance.now();
+                
+                const animate = (currentTime) => {
+                    const elapsedTime = currentTime - startTime;
+                    const progress = Math.min(elapsedTime / duration, 1);
+                    
+                    let value;
+                    if (Number.isInteger(target)) {
+                        value = Math.floor(progress * target);
+                    } else {
+                        value = (progress * target).toFixed(1);
+                    }
+                    
+                    stat.textContent = value + suffix;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            });
+        }
+        
+        // Start animation when stats section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // Create particles for hero section
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles-js');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100;
+                const opacity = Math.random() * 0.5 + 0.1;
+                const animationDuration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.opacity = opacity;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `-${delay}s`;
+                
+                // Random color variation
+                const hue = 270 + Math.random() * 30 - 15; // Purple hue range
+                particle.style.background = `hsla(${hue}, 80%, 60%, ${opacity})`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles when DOM is loaded
+        document.addEventListener('DOMContentLoaded', createParticles);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
